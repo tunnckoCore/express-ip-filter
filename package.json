@@ -1,0 +1,17 @@
+{
+  "name": "express-ip-filter",
+  "version": "0.0.0",
+  "description": "Express middleware to filter IPs with glob patterns, string, array or function, with blacklist and whitelist options, plus custom identifier",
+  "repository": "tunnckoCore/express-ip-filter",
+  "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
+  "main": "index.js",
+  "license": "MIT", 
+  "scripts": {
+    "test": "standard && node test.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "assertit": "^0.1.0"
+  },
+  "keywords": []
+}
