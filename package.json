@@ -5,11 +5,13 @@
   "repository": "tunnckoCore/express-ip-filter",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
   "main": "index.js",
-  "license": "MIT", 
+  "license": "MIT",
   "scripts": {
     "test": "standard && node test.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "ip-filter": "^1.0.0"
+  },
   "devDependencies": {
     "assertit": "^0.1.0"
   },
