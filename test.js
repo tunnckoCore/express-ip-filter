@@ -120,7 +120,7 @@ test('express-ip-filter:', function () {
       .expect(403, 'opts.forbidden can be function')
       .end(done)
   })
-  test('should have `this.filter` and `this.identifier` in next middleware', function (done) {
+  test('should have `res.filter` and `res.identifier` in next middleware', function (done) {
     var ok = false
     var server = express()
     .use(ipFilter({
@@ -146,7 +146,7 @@ test('express-ip-filter:', function () {
         done()
       })
   })
-  test('should not have `this.filter` if no `opts.filter` given', function (done) {
+  test('should not have `res.filter` if no `opts.filter` given', function (done) {
     var ok = false
     var server = express().use(ipFilter()).use(helloWorld()).use(function (req, res, next) {
       test.ok(!res.filter, 'should not have `res.filter` in next')
