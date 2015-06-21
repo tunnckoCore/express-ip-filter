@@ -24,7 +24,7 @@ npm test
 ## Usage
 > For more use-cases see the [tests](./test.js)
 
-### [expressIpFilter](./index.js#L26)
+### [expressIpFilter](./index.js#L50)
 > Filtering incoming request with glob patterns array, regexp, string or matcher function
 
 - `options` **{Object}**
