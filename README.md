@@ -12,11 +12,77 @@ npm test
 ```
 
 
+## Features
+- custom message when `403 Forbidden` response, through `opts.forbidden`
+- custom identifier different than default `req.ip`, through `opts.id`
+  + you may want to add `opts.strict: false` if it's not IP
+- filter IP using glob patterns, regexp, string, array or function
+- blacklist with negative glob patterns, whitelist with positive
+- would restrict all to `403 Forbidden` that not match to filter
+
+
 ## Usage
 > For more use-cases see the [tests](./test.js)
 
+### [expressIpFilter](./index.js#L26)
+> Filtering incoming request with glob patterns array, regexp, string or matcher function
+
+- `options` **{Object}**
+  + `id` **{Function}** custom identifier, defaults to `req.ip`
+  + `strict` **{Boolean}** to throw when not valid IPv4/IPv6? default `true`
+  + `filter` **{Array|String|RegExp|Function}** filter
+  + `forbidden` **{String|Function}** custom message when `403 Forbidden` response
+- `returns` **{Function}** thunk
+
+**Example**
+
 ```js
-var expressIpFilter = require('express-ip-filter')
+'use strict'
+
+var express = require('express')
+var ipFilter = require('express-ip-filter')
+var helloWorld = require('express-hello-world')
+
+var app = express()
+
+app
+.use(ipFilter({
+  forbidden: '403: Get out of here!',
+  filter: ['127.??.6*.12', '!1.2.*.4']
+}))
+.use(helloWorld())
+
+app.listen(1234)
+console.log('express server start listening on http://localhost:1234')
+
+// if your IP is `127.43.65.12` you will see `Hello World`
+// otherwise you will see `403: Get out of here!`
+```
+
+### One more example
+> If you want to allow all IPs, but want to restrict only some range
+
+```js
+'use strict'
+
+var express = require('express')
+var ipFilter = require('express-ip-filter')
+var helloWorld = require('express-hello-world')
+
+var app = express()
+
+app
+.use(ipFilter({
+  forbidden: '403: Get out of here!',
+  filter: ['*', '!213.15.*']
+}))
+.use(helloWorld())
+
+app.listen(1234)
+console.log('express server start listening on http://localhost:1234')
+
+// only user with IP starting with `213.15.*` 
+// will see the message `403: Get out of here!`
 ```
 
 
