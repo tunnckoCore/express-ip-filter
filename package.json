@@ -18,5 +18,23 @@
     "express-hello-world": "^1.0.0",
     "supertest": "^1.0.1"
   },
-  "keywords": []
+  "keywords": [
+    "blacklist",
+    "express",
+    "filter",
+    "glob",
+    "id",
+    "ip",
+    "ip-filter",
+    "limit",
+    "limiter",
+    "match",
+    "matcher",
+    "micromatch",
+    "middleware",
+    "regexp",
+    "request",
+    "support",
+    "whitelist"
+  ]
 }
