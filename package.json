@@ -1,30 +1,56 @@
 {
   "name": "express-ip-filter",
   "version": "1.0.0",
-  "description": "Express middleware to filter IPs with glob patterns, string, array or function, with blacklist and whitelist options, plus custom identifier",
+  "description": "Middleware for [express][] that filters IPs against glob patterns, RegExp, string or array of globs. Support custom `403 Forbidden` message, blacklists, whitelists and custom ID.",
   "repository": "tunnckoCore/express-ip-filter",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
+  "precommit.silent": true,
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "standard && node test.js"
+    "lint": "standard --verbose",
+    "pretest": "npm run lint",
+    "test": "npm run coverage",
+    "posttest": "npm run lint:coverage",
+    "coverage": "nyc node test.js",
+    "lint:coverage": "nyc check-coverage --lines 100 --branches 100 --statements 100 --functions 100",
+    "report-coverage": "nyc report --reporter=text-lcov | coveralls",
+    "prerelease": "npm test",
+    "release": "standard-version --sign --no-verify",
+    "precommit": "git add --all",
+    "commit": "git-cz"
   },
   "dependencies": {
-    "ip-filter": "^1.0.0"
+    "ip-filter": "^2.0.0"
   },
   "devDependencies": {
-    "assertit": "^0.1.0",
-    "express": "^4.13.0",
+    "commitizen": "^2.8.6",
+    "coveralls": "^2.11.12",
+    "cz-conventional-changelog": "^1.2.0",
+    "express": "^4.14.0",
     "express-hello-world": "^1.0.0",
-    "supertest": "^1.0.1"
+    "mukla": "^0.4.1",
+    "nyc": "^8.1.0",
+    "pre-commit": "^1.1.3",
+    "standard": "^8.0.0",
+    "standard-version": "^2.4.0",
+    "supertest": "^2.0.0"
   },
+  "files": [
+    "index.js"
+  ],
   "keywords": [
+    "array",
     "blacklist",
-    "express",
+    "custom",
     "filter",
+    "function",
     "glob",
     "id",
     "ip",
+    "ips",
+    "express",
+    "expressjs",
     "ip-filter",
     "limit",
     "limiter",
@@ -32,9 +58,33 @@
     "matcher",
     "micromatch",
     "middleware",
+    "minimatch",
+    "options",
+    "pattern",
+    "regex",
     "regexp",
-    "request",
+    "string",
     "support",
     "whitelist"
-  ]
+  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "verb": {
+    "run": true,
+    "toc": false,
+    "layout": "empty",
+    "tasks": [
+      "readme"
+    ],
+    "related": {
+      "list": []
+    },
+    "reflinks": [],
+    "lint": {
+      "reflinks": true
+    }
+  }
 }

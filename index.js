@@ -1,7 +1,7 @@
 /*!
  * express-ip-filter <https://github.com/tunnckoCore/express-ip-filter>
  *
- * Copyright (c) 2015 Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)
+ * Copyright (c) 2015-2016 Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)
  * Released under the MIT license.
  */
 
@@ -40,13 +40,14 @@ var ipFilter = require('ip-filter')
  *
  * @name  expressIpFilter
  * @param  {Object} `options`
- *   @option {Function} [options] `id` custom identifier, defaults to `req.ip`
+ *   @option {Function} [options] `id` custom identifier, defaults to `this.ip`
  *   @option {Boolean} [options] `strict` to throw when not valid IPv4/IPv6? default `true`
  *   @option {Array|String|RegExp|Function} [options] `filter` black/white list filter
  *   @option {String|Function} [options] `forbidden` custom message when `403 Forbidden` response
- * @return {Function} thunk
+ * @return {GeneratorFunction}
  * @api public
  */
+
 module.exports = function expressIpFilter (options) {
   options = typeof options === 'object' ? options : {}
 
@@ -58,10 +59,9 @@ module.exports = function expressIpFilter (options) {
       return
     }
 
-    var strict = typeof options.strict === 'boolean' ? options.strict : true
     var forbidden = options.forbidden || '403 Forbidden'
 
-    var identifier = ipFilter(id, options.filter, !strict)
+    var identifier = ipFilter(id, options.filter, options)
     if (identifier === null) {
       var body = typeof forbidden === 'function' ? forbidden.call(this, req, res) : forbidden
       res.status(403).send(body)
