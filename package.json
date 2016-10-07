@@ -43,15 +43,15 @@
     "array",
     "blacklist",
     "custom",
+    "express",
+    "expressjs",
     "filter",
     "function",
     "glob",
     "id",
     "ip",
-    "ips",
-    "express",
-    "expressjs",
     "ip-filter",
+    "ips",
     "limit",
     "limiter",
     "match",
@@ -80,11 +80,22 @@
       "readme"
     ],
     "related": {
-      "list": []
+      "list": [
+        "is-match",
+        "is-match-ip",
+        "ip-filter",
+        "koa-ip-filter",
+        "koa-better-body"
+      ]
     },
-    "reflinks": [],
     "lint": {
       "reflinks": true
-    }
+    },
+    "reflinks": [
+      "express",
+      "ip-filter",
+      "koa",
+      "micromatch"
+    ]
   }
 }

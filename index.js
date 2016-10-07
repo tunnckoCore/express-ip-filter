@@ -44,7 +44,7 @@ var ipFilter = require('ip-filter')
  *   @option {Boolean} [options] `strict` to throw when not valid IPv4/IPv6? default `true`
  *   @option {Array|String|RegExp|Function} [options] `filter` black/white list filter
  *   @option {String|Function} [options] `forbidden` custom message when `403 Forbidden` response
- * @return {GeneratorFunction}
+ * @return {Function}
  * @api public
  */
 
