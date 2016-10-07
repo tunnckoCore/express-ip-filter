@@ -38,21 +38,22 @@ test('should have `opts.id` and it should be binded to koa this', function (done
   request(server)
     .get('/')
     .expect('x-github-username', 'tunnckoCore')
-    .expect(200, 'Hello World')
+    .expect(200)
+    .expect('Hello World')
     .end(done)
 })
 test('should `403 Forbidden` if not match to `opts.filter`', function (done) {
   var server = middleware(ipFilter({
-    id: function (req, res) {
+    id: function (req) {
       return req.get('x-expressip')
     },
     filter: '1.2.3.*'
   }))
 
   request(server)
-    .get('/')
-    .set('x-expressip', '4.4.8.8')
-    .expect(403, '403 Forbidden')
+    .get('/').set('x-expressip', '4.4.8.8')
+    .expect('403 Forbidden')
+    .expect(403)
     .end(done)
 })
 test('should `403 Forbidden` if IP is in blacklist', function (done) {
@@ -66,36 +67,35 @@ test('should `403 Forbidden` if IP is in blacklist', function (done) {
   request(server)
     .get('/')
     .set('x-expressip', '89.111.30.8')
-    .expect(403, '403 Forbidden')
-    .end(done)
+    .expect('403 Forbidden')
+    .expect(403, done)
 })
 test('should `200 OK` if not in blacklist range', function (done) {
-  var server = middleware(ipFilter({
+  request(middleware(ipFilter({
     id: function (req) {
       return req.get('x-expressip')
     },
     filter: ['**', '!89.???.30.*']
-  }))
-
-  request(server)
-    .get('/')
-    .set('x-expressip', '4.4.8.8')
+  })))
+    .get('/').set('x-expressip', '4.4.8.8')
     .expect(200, 'Hello World')
     .end(done)
 })
 test('should support custom message for 403 Forbidden', function (done) {
   var server = middleware(ipFilter({
     id: function (req) {
-      return req.get('x-expressip')
+      return req.get('x-envip') !== 'bar' || req.get('x-fooip')
     },
     filter: ['*.*.*.*', '!89.???.30.*'],
     forbidden: '403, Get out of here!'
   }))
 
   request(server)
-    .get('/')
-    .set('x-expressip', '89.111.30.8')
-    .expect(403, '403, Get out of here!')
+    .get('/foobar')
+    .set('x-envip', 'bar')
+    .set('x-fooip', '89.111.30.8')
+    .expect(403)
+    .expect('403, Get out of here!')
     .end(done)
 })
 test('should be able `opts.forbidden` to be function', function (done) {
