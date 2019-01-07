@@ -42,6 +42,7 @@ var ipFilter = require('ip-filter')
  * @param  {Object} `options`
  *   @option {Function} [options] `id` custom identifier, defaults to `this.ip`
  *   @option {Boolean} [options] `strict` to throw when not valid IPv4/IPv6? default `true`
+ *   @option {Boolean} [options] `debug` when do you want to show on console.debug message with ip`
  *   @option {Array|String|RegExp|Function} [options] `filter` black/white list filter
  *   @option {String|Function} [options] `forbidden` custom message when `403 Forbidden` response
  * @return {Function}
@@ -65,9 +66,11 @@ module.exports = function expressIpFilter (options) {
     if (identifier === null) {
       var body = typeof forbidden === 'function' ? forbidden.call(this, req, res) : forbidden
       res.status(403).send(body)
+      if (options.debug) console.log('Blocking for ip ' + id)
       return
     }
 
+    if (options.debug) console.log('Allowing access for ip ' + id)
     res.filter = ipFilter
     res.identifier = identifier
 
