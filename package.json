@@ -1,6 +1,6 @@
 {
   "name": "express-ip-filter",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Middleware for [express][] that filters IPs against glob patterns, RegExp, string or array of globs. Support custom `403 Forbidden` message, blacklists, whitelists and custom ID.",
   "repository": "tunnckoCore/express-ip-filter",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
